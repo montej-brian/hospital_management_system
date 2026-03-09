@@ -9,6 +9,8 @@ const pool = require('./config/db');
 // Import routes
 const authRoutes = require('./routes/authRoutes');
 const patientRoutes = require('./routes/patientRoutes');
+const appointmentRoutes = require('./routes/appointmentRoutes');
+const medicalRecordRoutes = require('./routes/medicalRecordRoutes');
 const setupSwagger = require('./config/swagger');
 
 const app = express();
@@ -25,6 +27,8 @@ setupSwagger(app);
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/patients', patientRoutes);
+app.use('/api/appointments', appointmentRoutes);
+app.use('/api/medical-records', medicalRecordRoutes);
 
 // Basic route for testing
 app.get('/', (req, res) => {

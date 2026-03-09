@@ -111,6 +111,41 @@ CREATE TABLE IF NOT EXISTS billing (
     INDEX idx_billing_status (payment_status)
 );
 
+-- 8. Lab Tests Table
+CREATE TABLE IF NOT EXISTS lab_tests (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    medical_record_id INT NOT NULL,
+    test_name VARCHAR(255) NOT NULL,
+    test_date DATE,
+    results TEXT,
+    status ENUM('pending', 'completed') DEFAULT 'pending',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (medical_record_id) REFERENCES medical_records(id) ON DELETE CASCADE
+);
+
+-- 9. Medical Documents Table
+CREATE TABLE IF NOT EXISTS medical_documents (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    medical_record_id INT NOT NULL,
+    file_name VARCHAR(255) NOT NULL,
+    file_path VARCHAR(255) NOT NULL,
+    file_type VARCHAR(50),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (medical_record_id) REFERENCES medical_records(id) ON DELETE CASCADE
+);
+
+-- 10. Audit Logs Table
+CREATE TABLE IF NOT EXISTS audit_logs (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    action VARCHAR(255) NOT NULL,
+    resource VARCHAR(100),
+    resource_id INT,
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL
+);
+
+
 -- Sample Data
 INSERT INTO users (username, password_hash, email, role) VALUES
 ('admin_user', 'hashed_pw_1', 'admin@hospital.com', 'admin'),
