@@ -10,6 +10,11 @@ import PatientForm from './pages/patients/PatientForm';
 import PatientProfile from './pages/patients/PatientProfile';
 import AppointmentList from './pages/appointments/AppointmentList';
 import AppointmentForm from './pages/appointments/AppointmentForm';
+import MedicalRecordForm from './pages/medical-records/MedicalRecordForm';
+import BillingDashboard from './pages/billing/BillingDashboard';
+import InvoiceGenerator from './pages/billing/InvoiceGenerator';
+import PaymentProcessor from './pages/billing/PaymentProcessor';
+import InsuranceClaims from './pages/billing/InsuranceClaims';
 
 const Unauthorized = () => (
     <div style={{ padding: '3rem', textAlign: 'center', color: '#ef4444' }}>
@@ -67,6 +72,11 @@ function App() {
                             <PatientForm />
                         </ProtectedRoute>
                     } />
+                    <Route path="/admin/patients/:id/medical-records/new" element={
+                        <ProtectedRoute allowedRoles={['admin', 'doctor', 'nurse']}>
+                            <MedicalRecordForm />
+                        </ProtectedRoute>
+                    } />
                     
                     {/* Appointments */}
                     <Route path="/admin/appointments" element={
@@ -77,6 +87,33 @@ function App() {
                     <Route path="/admin/appointments/new" element={
                         <ProtectedRoute allowedRoles={['admin', 'receptionist', 'patient']}>
                             <AppointmentForm />
+                        </ProtectedRoute>
+                    } />
+
+                    {/* Billing & Payments */}
+                    <Route path="/admin/billing" element={
+                        <ProtectedRoute allowedRoles={['admin', 'receptionist']}>
+                            <BillingDashboard />
+                        </ProtectedRoute>
+                    } />
+                    <Route path="/admin/billing/new-invoice" element={
+                        <ProtectedRoute allowedRoles={['admin', 'receptionist']}>
+                            <InvoiceGenerator />
+                        </ProtectedRoute>
+                    } />
+                    <Route path="/admin/billing/invoice/:id" element={
+                        <ProtectedRoute allowedRoles={['admin', 'receptionist', 'patient']}>
+                            <InvoiceGenerator />
+                        </ProtectedRoute>
+                    } />
+                    <Route path="/admin/billing/process/:id" element={
+                        <ProtectedRoute allowedRoles={['admin', 'receptionist']}>
+                            <PaymentProcessor />
+                        </ProtectedRoute>
+                    } />
+                    <Route path="/admin/billing/insurance" element={
+                        <ProtectedRoute allowedRoles={['admin', 'receptionist']}>
+                            <InsuranceClaims />
                         </ProtectedRoute>
                     } />
 

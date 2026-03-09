@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import axios from '../../api/axios';
 import DashboardLayout from '../../components/DashboardLayout';
+import MedicalRecordsTimeline from '../medical-records/MedicalRecordsTimeline';
 import { ArrowLeft, User, Phone, MapPin, Calendar, Activity, Edit, FileText, Clock, CreditCard } from 'lucide-react';
 
 const PatientProfile = () => {
@@ -142,10 +143,8 @@ const PatientProfile = () => {
                             )}
 
                             {activeTab === 'history' && (
-                                <div className="empty-state">
-                                    <FileText size={48} className="empty-icon" />
-                                    <h3>No Medical Records Found</h3>
-                                    <p>This patient doesn't have any medical history recorded yet.</p>
+                                <div style={{ animation: 'fadeIn 0.3s ease-in' }}>
+                                    <MedicalRecordsTimeline patientId={id} />
                                 </div>
                             )}
 
