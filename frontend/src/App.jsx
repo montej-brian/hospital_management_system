@@ -17,6 +17,7 @@ import BillingDashboard from './pages/billing/BillingDashboard';
 import InvoiceGenerator from './pages/billing/InvoiceGenerator';
 import PaymentProcessor from './pages/billing/PaymentProcessor';
 import InsuranceClaims from './pages/billing/InsuranceClaims';
+import NotificationSettings from './pages/notifications/NotificationSettings';
 
 const Unauthorized = () => (
     <div style={{ padding: '3rem', textAlign: 'center', color: '#ef4444' }}>
@@ -116,6 +117,13 @@ function App() {
                     <Route path="/admin/billing/insurance" element={
                         <ProtectedRoute allowedRoles={['admin', 'receptionist']}>
                             <InsuranceClaims />
+                        </ProtectedRoute>
+                    } />
+                    
+                    {/* Settings / Notifications */}
+                    <Route path="/admin/notifications/settings" element={
+                        <ProtectedRoute allowedRoles={['admin', 'receptionist', 'doctor', 'nurse', 'patient']}>
+                            <NotificationSettings />
                         </ProtectedRoute>
                     } />
 

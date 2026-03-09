@@ -146,6 +146,29 @@ CREATE TABLE IF NOT EXISTS audit_logs (
 );
 
 
+-- 11. Notifications Table
+CREATE TABLE IF NOT EXISTS notifications (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    type VARCHAR(50) NOT NULL, -- e.g., 'appointment', 'system', 'lab_result', 'message'
+    title VARCHAR(100) NOT NULL,
+    message TEXT NOT NULL,
+    is_read BOOLEAN DEFAULT FALSE,
+    action_url VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+-- 12. Notification Preferences
+CREATE TABLE IF NOT EXISTS notification_preferences (
+    user_id INT PRIMARY KEY,
+    email_enabled BOOLEAN DEFAULT TRUE,
+    sms_enabled BOOLEAN DEFAULT FALSE,
+    in_app_enabled BOOLEAN DEFAULT TRUE,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+
 -- Sample Data
 INSERT INTO users (username, password_hash, email, role) VALUES
 ('admin_user', 'hashed_pw_1', 'admin@hospital.com', 'admin'),

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useAuth } from '../context/AuthContext';
-import { Bell, Sun, Moon, Menu, ChevronRight } from 'lucide-react';
+import { Sun, Moon, Menu, ChevronRight } from 'lucide-react';
+import NotificationCenter from './NotificationCenter';
 
 const Navbar = ({ theme, onToggleTheme, onMobileMenuToggle, breadcrumb }) => {
     const { user } = useAuth();
@@ -22,10 +23,7 @@ const Navbar = ({ theme, onToggleTheme, onMobileMenuToggle, breadcrumb }) => {
                     {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
                 </button>
 
-                <button className="notification-btn">
-                    <Bell size={18} />
-                    <span className="notification-badge">3</span>
-                </button>
+                <NotificationCenter />
 
                 <div className="user-menu">
                     <div className="user-avatar">{initials}</div>
