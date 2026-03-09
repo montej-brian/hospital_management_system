@@ -6,6 +6,11 @@ require('dotenv').config();
 // Import database configuration
 const pool = require('./config/db');
 
+// Import routes
+const authRoutes = require('./routes/authRoutes');
+const patientRoutes = require('./routes/patientRoutes');
+const setupSwagger = require('./config/swagger');
+
 const app = express();
 const PORT = process.env.PORT || 5000;
 
@@ -13,6 +18,13 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// Setup Swagger
+setupSwagger(app);
+
+// Routes
+app.use('/api/auth', authRoutes);
+app.use('/api/patients', patientRoutes);
 
 // Basic route for testing
 app.get('/', (req, res) => {
